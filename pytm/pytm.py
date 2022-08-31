@@ -284,11 +284,9 @@ class OrderedEnum(Enum):
 class Classification(OrderedEnum):
     UNKNOWN = 0
     PUBLIC = 1
-    RESTRICTED = 2
-    SENSITIVE = 3
-    SECRET = 4
-    TOP_SECRET = 5
-
+    INTERNAL = 2
+    CONFIDENTIAL = 3
+    RESTRICTED = 4
 
 class Lifetime(Enum):
     # not applicable

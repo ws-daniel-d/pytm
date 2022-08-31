@@ -909,7 +909,7 @@ a brief description of the system being modeled."""
         shape = none;
         arrowtail = onormal;
         fontname = Arial;
-        fontsize = 12;
+        fontsize = 10;
     ]
     labelloc = "t";
     fontsize = 20;
@@ -1713,9 +1713,16 @@ class Dataflow(Element):
         TM._flows.append(self)
 
     def display_name(self):
-        if self.order == -1:
-            return self.name
-        return "({}) {}".format(self.order, self.name)
+        name = []
+        if self.order != -1:
+            name.append(f"({self.order})")
+        if self.name != "":
+            name.append(self.name)
+        if self.protocol != "":
+            name.append(f"[{self.protocol}]")
+        if self.sink and self.sink.controls.authenticationScheme != "":
+            name.append(f"[{self.sink.controls.authenticationScheme}]")
+        return " ".join(name)
 
     def _dfd_template(self):
         return """{source} -> {sink} [

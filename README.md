@@ -30,9 +30,10 @@ The `tm.py` is an example model. You can run it to generate the report and diagr
 
 ```
 mkdir -p tm
-./tm.py --report docs/basic_template.md | pandoc -f markdown -t html > tm/report.html
 ./tm.py --dfd | dot -Tpng -o tm/dfd.png
 ./tm.py --seq | java -Djava.awt.headless=true -jar $PLANTUML_PATH -tpng -pipe > tm/seq.png
+./tm.py --report docs/basic_template.md | pandoc -f markdown -t html > tm/basic_report.html
+./tm.py --report docs/advanced_template.md | pandoc -f markdown -t html > tm/advanced_report.html
 ```
 
 There's also an example `Makefile` that wraps all these into targets that can be easily shared for multiple models. If you have [GNU make](https://www.gnu.org/software/make/) installed (available by default on Linux distros but not on OSX), simply run:

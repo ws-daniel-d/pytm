@@ -1621,8 +1621,7 @@ is any information relating to an identifiable person.""",
     imagescale = true;
     color = {color};
     fontcolor = {color};
-    xlabel = "{label}";
-    label = "";
+    label = "{label}";
 ]
 """
 

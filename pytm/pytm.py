@@ -1353,8 +1353,10 @@ a custom response, CVSS score or override other attributes.""",
     def display_name(self):
         return self.name
 
-    def _label(self):
-        return "\\n".join(wrap(self.display_name(), 18))
+    def _label(self, label_details:str=""):
+        if label_details == "":
+            label_details = self.display_name()
+        return "\\n".join(wrap(label_details, 18))
 
     def _shape(self):
         return "square"
@@ -1713,16 +1715,9 @@ class Dataflow(Element):
         TM._flows.append(self)
 
     def display_name(self):
-        name = []
-        if self.order != -1:
-            name.append(f"({self.order})")
-        if self.name != "":
-            name.append(self.name)
-        if self.protocol != "":
-            name.append(f"[{self.protocol}]")
-        if self.sink and self.sink.controls.authenticationScheme != "":
-            name.append(f"[{self.sink.controls.authenticationScheme}]")
-        return " ".join(name)
+        if self.order == -1:
+            return self.name
+        return "({}) {}".format(self.order, self.name)
 
     def _dfd_template(self):
         return """{source} -> {sink} [
@@ -1733,6 +1728,19 @@ class Dataflow(Element):
 ]
 """
 
+    def _label(self):
+        name = []
+        if self.order != -1:
+            name.append(f"({self.order})")
+        if self.name != "":
+            name.append(self.name)
+        if self.protocol != "":
+            name.append(f"[{self.protocol}]")
+        if self.sink and self.sink.controls.authenticationScheme != "":
+            name.append(f"[{self.sink.controls.authenticationScheme}]")
+        return super()._label(" ".join(name))
+
+    
     def dfd(self, mergeResponses=False, **kwargs):
         self._is_drawn = True
 

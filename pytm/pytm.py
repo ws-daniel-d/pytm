@@ -914,6 +914,7 @@ a brief description of the system being modeled."""
     labelloc = "t";
     fontsize = 20;
     nodesep = 1;
+    rankdir="LR"
 
 {edges}
 }}"""
